@@ -209,7 +209,7 @@ class EmployeeController extends Controller
     public function getUsers(Request $request){
         $query = $request->q;
         if(strlen($query) > 2){
-        $users = User::where('name', 'LIKE', "%$query%")->orWhere('email', 'LIKE', "%$query%")->whereDoesntHave('employee')->orderBy('name')->get();
+        $users = User::where('name', 'LIKE', "%$query%")->orWhere('email', 'LIKE', "%$query%")->orderBy('name')->get()->whereDoesntHave('employee');
     }
         return response()->json($users, 200);
     }
