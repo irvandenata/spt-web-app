@@ -34,16 +34,24 @@
         width: 100% !important;
         padding: 0 0 0 0 !important;
     }
+    .logo{
+
+    font-size: 30px !important;
+    color: #fff !important;
+    }
+    body{
+        position: relative;
+    }
   </style>
 </head>
 
 <body>
+
   <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo" href="index.html"><img src="{{ asset('assets') }}/images/logo.svg"
-            alt="logo" /></a>
+        <h1 class="navbar-brand brand-logo logo mt-5 mb-3" >SIMSPT</h1>
         <a class="navbar-brand brand-logo-mini" href="index.html"><img src="{{ asset('assets') }}/images/logo-mini.svg"
             alt="logo" /></a>
       </div>
@@ -251,8 +259,13 @@
 
           <li class="nav-item sidebar-user-actions">
             <div class="sidebar-user-menu">
-              <a href="#" class="nav-link"><i class="mdi mdi-logout menu-icon"></i>
+              <a  href="{{ route('logout') }}"
+              onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();" class="nav-link"><i class="mdi mdi-logout menu-icon"></i>
                 <span class="menu-title">Log Out</span></a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                  </form>
             </div>
           </li>
         </ul>
