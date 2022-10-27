@@ -1,7 +1,5 @@
 <script>
     const child_url = "{!! Request::url() !!}";
-
-
     function setForm(saved, method, title) {
         save_method = saved;
         $('input[name=_method]').val(method);
@@ -50,12 +48,15 @@
         $('#modalForm form').on('submit', function (e) {
             if (!e.isDefaultPrevented()) {
                 saveAjax(setUrl(),e);
+
                 return false;
             }
         });
     });
 
     function saveAjax(url,e) {
+        $('#modalForm').modal('hide');
+
         e.preventDefault();
         Swal.fire({
             type: 'warning',
@@ -79,17 +80,17 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             success: function (result) {
-                $('#modalForm').modal('hide');
+
                 reloadDatatable();
                 Toast.fire({
                     icon: 'success',
                     title: result.message
                 })
-
+                limitOrder++;
+                tempOrder = limitOrder;
                 // toastr.success('Berhasil Disimpan', 'Success');
             },
             error: async function (result) {
-                $('#modalForm').modal('hide');
                 Swal.fire({
                     icon: 'error',
                     text: 'Terjadi Kesalahan !',
@@ -137,6 +138,8 @@
                             'Data Has Been Deleted',
                             'success'
                         ).then(() => {
+                            limitOrder--;
+
                             reloadDatatable();
 
                         })
